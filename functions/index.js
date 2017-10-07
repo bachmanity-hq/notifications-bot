@@ -2,7 +2,6 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
-const debug = require('debug')('notifications');
 const _ = require('lodash');
 const Slack = require('./slack').Slack;
 
@@ -21,16 +20,13 @@ app.use(bodyParser.json());
 app.post('/incoming', (req, res) => {
   console.log(req.body.deal);
   const { deal } = req.body;
-  Slack.sendNotification({ title: 'New Deal!', message: deal.businessName });
-  res.status(200).json({msg: `Successfully notified the deals for: ${deal.businessName}`});
-  // Ticket.fromExternal(req.body)
-  //   .then((ticket) => ticket.postToChannel())
-  //   .then(() => {
-  //     res.sendStatus(200);
-  //   })
-  //   .catch((error) => {
-  //     res.status(400).send('The ticket was not created');
-  //   });
+  Slack.sendNotification({ title: 'New Deal!', message: deal.businessName })
+    .then(response => {
+      res.status(200).json({msg: `Successfully notified the deals for: ${deal.businessName}`, detail: response.data});
+    })
+    .catch(error => {
+      res.status(400).json({msg: 'The notification was not created', detail: error.data});
+    });
 });
 
 /*
@@ -71,11 +67,11 @@ app.post('/interactive-message', (req, res) => {
   // }
 });
 
-app.listen( process.env.PORT || 3000, function(){
-  console.log('Listening on port 3000');
-});
-
-// exports.notifications = functions.https.onRequest((req, res) => {
-//   if (!req.path) req.url = `/${req.url}`
-//   return app(req, res)
+// app.listen( process.env.PORT || 3000, function(){
+//   console.log('Listening on port 3000');
 // });
+
+exports.notifications = functions.https.onRequest((req, res) => {
+  if (!req.path) req.url = `/${req.url}`
+  return app(req, res)
+});
