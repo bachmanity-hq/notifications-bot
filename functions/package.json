@@ -1,13 +1,19 @@
 {
   "name": "functions",
   "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "start": "DEBUG=notifications,notifications:slack nodemon index.js"
+  },
   "dependencies": {
-    "firebase-admin": "~5.2.1",
-    "firebase-functions": "^0.6.2",
     "axios": "^0.16.0",
     "body-parser": "^1.17.1",
+    "debug": "^3.1.0",
     "express": "^4.15.2",
+    "firebase-admin": "~5.4.0",
+    "firebase-functions": "^0.7.0",
     "level": "^1.7.0",
+    "lodash": "^4.17.4",
+    "nodemon": "^1.12.1",
     "querystring": "^0.2.0"
   },
   "private": true
