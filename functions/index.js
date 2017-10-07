@@ -2,6 +2,9 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
+const debug = require('debug')('notifications');
+const _ = require('lodash');
+const Slack = require('./slack').Slack;
 
 const app = express();
 
@@ -16,7 +19,10 @@ app.use(bodyParser.json());
  * Used to notify app of new helpdesk tickets in this case
  */
 app.post('/incoming', (req, res) => {
-  res.status(200).send('hello dan');
+  console.log(req.body.deal);
+  const { deal } = req.body;
+  Slack.sendNotification({ title: 'New Deal!', message: deal.businessName });
+  res.status(200).json({msg: `Successfully notified the deals for: ${deal.businessName}`});
   // Ticket.fromExternal(req.body)
   //   .then((ticket) => ticket.postToChannel())
   //   .then(() => {
@@ -70,6 +76,6 @@ app.listen( process.env.PORT || 3000, function(){
 });
 
 // exports.notifications = functions.https.onRequest((req, res) => {
-//       if (!req.path) req.url = `/${req.url}`
-//       return app(req, res)
+//   if (!req.path) req.url = `/${req.url}`
+//   return app(req, res)
 // });
