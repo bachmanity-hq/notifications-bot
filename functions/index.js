@@ -17,6 +17,7 @@ app.use(bodyParser.json());
  */
 app.post('/incoming', (req, res) => {
   const { notification } = req.body;
+  console.log(notification);
   Slack.sendNotification(notification)
     .then((response) => {
       res.status(200).json({ msg: `Successfully notified the ${notification.type} for: ${notification.title}`, detail: response.data });
