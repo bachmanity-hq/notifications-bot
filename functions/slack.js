@@ -1,6 +1,7 @@
 const axios = require('axios');
 const _ = require('lodash');
 const functions = require('firebase-functions');
+const template = require('./template');
 
 class Slack {
   constructor(props) {
@@ -15,14 +16,13 @@ class Slack {
       oauth_access_token
     } = _.get(this.config, 'bachmanity.coup_notifications');
 
+    const noti = template.fill(this);
     const body = {
-      title: this.type,
-      text: this.title,
       token: oauth_access_token,
       channel: '#notifications'
     };
 
-    return axios.post(webhook_url, body);
+    return axios.post(webhook_url, _.merge(body, noti));
   }
 
   static sendNotification({ type, title, meta }) {

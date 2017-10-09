@@ -3,8 +3,8 @@ Notifications Bot
 > Agnostic API for sending notifications to our _notifications_ slack channel
 
 ## Getting Started
-1. `cd functions && npm install`
-2. Ensure you've logged in via `gcloud auth application-default login`. More info [here](https://developers.google.com/identity/protocols/application-default-credentials).
+1. `npm install && cd functions && npm install`
+2. Ensure you've logged in via `gcloud auth application-default login`.
 
 ## API
 Notifications are sent to the <API_URL>/incoming with an `application/json` body that looks like:
