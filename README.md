@@ -3,16 +3,19 @@ Notifications Bot
 > Agnostic API for sending notifications to our _notifications_ slack channel
 
 ## Getting Started
-1. `cd functions && npm install`
-2. Ensure you've logged in via `gcloud auth application-default login`. More info [here](https://developers.google.com/identity/protocols/application-default-credentials).
+1. `npm install && cd functions && npm install`
+2. Ensure you've logged in via `firebase login`.
 
 ## API
 Notifications are sent to the <API_URL>/incoming with an `application/json` body that looks like:
 ```JSON
 {
-  "message": {
+  "notification": {
+    "type": "<Type>", // snake cased version of notification type, e.g. `new_deal` or `new_client`
     "title": "<Title>",
-    "message": "<Message>"
+    "meta": {
+      "businessName": "50% off of everything" // Anything can go into this object and be iterated over in the notification body
+    }
   }
 }
 ```
@@ -34,4 +37,5 @@ _refrerenced from https://github.com/slackapi/template-actionable-notifications_
 6. Set the firebase:config variables for the slack app
 
 ## Deployment
-From the root of the project run `firebase deploy --only functions:notifications`.
+From the root of the project run `npm run deploy`.
+* This will lint and run the tests so that we can ensure we don't break the deploy

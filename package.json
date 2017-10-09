@@ -1,0 +1,30 @@
+{
+  "name": "notifications-bot",
+  "version": "1.0.0",
+  "description": "Notifications Bot ================= > Agnostic API for sending notifications to our _notifications_ slack channel",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js ./functions",
+    "test": "./node_modules/jest/bin/jest.js ./functions",
+    "precommit": "npm run lint -q && npm run test -q",
+    "deploy": "npm run precommit && firebase deploy --only functions:notifications"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bachmanity-hq/notifications-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bachmanity-hq/notifications-bot/issues"
+  },
+  "homepage": "https://github.com/bachmanity-hq/notifications-bot#readme",
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1"
+  }
+}

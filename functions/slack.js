@@ -1,44 +1,35 @@
-'use strict';
 const axios = require('axios');
-const template = require('./template');
-const qs = require('querystring');
 const _ = require('lodash');
 const functions = require('firebase-functions');
+const template = require('./template');
 
 class Slack {
   constructor(props) {
-    for (let prop in props) {
-      if (props.hasOwnProperty(prop)) {
-        this[prop] = props[prop];
-      }
-    }
+    _.forOwn(props, (v, k) => {
+      this[k] = v;
+    });
   }
 
   send() {
     const {
-      client_id,
-      client_secret,
-      verification_token,
       webhook_url,
       oauth_access_token
     } = _.get(this.config, 'bachmanity.coup_notifications');
 
+    const noti = template.fill(this);
     const body = {
-      title: this.title,
-      text: this.message,
       token: oauth_access_token,
       channel: '#notifications'
     };
 
-    return axios.post(webhook_url, body);
+    return axios.post(webhook_url, _.merge(body, noti));
   }
 
-  static sendNotification({ title, message }) {
+  static sendNotification({ type, title, meta }) {
     const config = functions.config().slack;
-    const slack = new Slack({ config, title, message });
+    const slack = new Slack({ config, type, title, meta });
     return slack.send();
   }
-
 }
 
 module.exports.Slack = Slack;
