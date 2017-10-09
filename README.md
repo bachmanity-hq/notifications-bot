@@ -8,7 +8,7 @@ Notifications Bot
 
 ## API
 Notifications are sent to the <API_URL>/incoming with an `application/json` body that looks like:
-```JSON
+```javascript
 {
   "notification": {
     "type": "<Type>", // snake cased version of notification type, e.g. `new_deal` or `new_client`
