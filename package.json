@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js ./functions",
     "test": "./node_modules/jest/bin/jest.js ./functions",
-    "precommit": "npm run lint && npm run test"
+    "precommit": "npm run lint -q && npm run test -q"
   },
   "repository": {
     "type": "git",

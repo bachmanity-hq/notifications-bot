@@ -12,7 +12,7 @@ const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
  * @param {boolean} isActionable - Should message actions be shown?
  */
 const fill = (ticket, isActionable) => {
-  isActionable = isActionable === undefined ? true : isActionable;
+  const isActuallyActionable = isActionable === undefined ? true : isActionable;
   const label = labels.find(l => l.name === ticket.fields.priority);
   const attachment = {
     title: ticket.title,
@@ -32,7 +32,7 @@ const fill = (ticket, isActionable) => {
     });
   });
 
-  if (isActionable) {
+  if (isActuallyActionable) {
     attachment.actions = [{
       name: 'agent',
       text: 'Claim',
