@@ -23,6 +23,7 @@ app.post('/incoming', (req, res) => {
       res.status(200).json({ msg: `Successfully notified the ${notification.type} for: ${notification.title}`, detail: response.data });
     })
     .catch((error) => {
+      console.error(error);
       res.status(400).json({ msg: 'ERROR: The notification was not created', detail: error.data });
     });
 });

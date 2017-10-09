@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js ./functions",
     "test": "./node_modules/jest/bin/jest.js ./functions",
-    "precommit": "npm run lint -q && npm run test -q"
+    "precommit": "npm run lint -q && npm run test -q",
+    "deploy": "npm run precommit && firebase deploy --only functions:notifications"
   },
   "repository": {
     "type": "git",

@@ -34,4 +34,5 @@ _refrerenced from https://github.com/slackapi/template-actionable-notifications_
 6. Set the firebase:config variables for the slack app
 
 ## Deployment
-From the root of the project run `firebase deploy --only functions:notifications`.
+From the root of the project run `npm run deploy`.
+* This will lint and run the tests so that we can ensure we don't break the deploy
