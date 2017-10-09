@@ -4,15 +4,18 @@ Notifications Bot
 
 ## Getting Started
 1. `npm install && cd functions && npm install`
-2. Ensure you've logged in via `gcloud auth application-default login`.
+2. Ensure you've logged in via `firebase login`.
 
 ## API
 Notifications are sent to the <API_URL>/incoming with an `application/json` body that looks like:
 ```JSON
 {
-  "message": {
+  "notification": {
+    "type": "<Type>", // snake cased version of notification type, e.g. `new_deal` or `new_client`
     "title": "<Title>",
-    "message": "<Message>"
+    "meta": {
+      "businessName": "50% off of everything" // Anything can go into this object and be iterated over in the notification body
+    }
   }
 }
 ```
